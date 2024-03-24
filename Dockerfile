@@ -16,4 +16,5 @@ RUN chmod +x /usr/local/bin/kubectl && \
     vault \
     libcap \
     sshpass && \
-  setcap cap_ipc_lock= /usr/sbin/vault
+setcap cap_ipc_lock= /usr/sbin/vault
+COPY read-vault-secrets.sh /usr/local/bin/
