@@ -37,3 +37,18 @@ while read -r line; do
 
   export "$env_var_name"="$secret_value"
 done < <(echo "$VAULT_SECRETS" | yq -o json | jq -r 'to_entries[] | @base64')
+
+# optionally, create ssh certificate
+if [ ! -z "$VAULT_SSH_ROLE" ]; then
+  echo "Creating ssh key"
+
+  key_type=ed25519
+  key_path=${HOME}/.ssh/id_${key_type}
+  public_key_path=${key_path}.pub
+  cert_path=${key_path}-cert.pub
+
+  mkdir -m 0700 -p ~/.ssh
+  ssh-keygen -q -t ${key_type} -N "" -f $key_path
+
+  vault write -field=signed_key ssh/sign/$VAULT_SSH_ROLE public_key=@$public_key_path > $cert_path
+fi
