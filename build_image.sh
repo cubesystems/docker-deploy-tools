@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-TAG=cubesystems/deploy-utils:1.6
+TAG=cubesystems/deploy-utils:1.7
 
 docker buildx build . \
   -t $TAG \

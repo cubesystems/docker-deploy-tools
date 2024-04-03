@@ -1,4 +1,4 @@
-FROM alpine:3.18
+FROM alpine:3.19
 ENV K8_VERSION=v1.29.2
 ADD https://storage.googleapis.com/kubernetes-release/release/$K8_VERSION/bin/linux/amd64/kubectl /usr/local/bin/kubectl
 RUN chmod +x /usr/local/bin/kubectl && \
@@ -13,8 +13,7 @@ RUN chmod +x /usr/local/bin/kubectl && \
     yq \
     rsync \
     gettext \
-    vault \
-    libcap \
-    sshpass && \
-setcap cap_ipc_lock= /usr/sbin/vault
-COPY read-vault-secrets.sh /usr/local/bin/
+    curl \
+    sshpass
+
+COPY read-vault-data.sh /usr/local/bin/
