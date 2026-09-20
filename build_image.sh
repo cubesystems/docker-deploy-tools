@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 
-TAG=cubesystems/deploy-utils:1.7
+TAG=cubesystems/deploy-utils:1.8
 
 docker buildx build . \
   -t $TAG \
-  --platform linux/amd64 \
+  --platform linux/amd64,linux/arm64 \
   --push
